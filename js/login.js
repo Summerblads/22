@@ -1,44 +1,47 @@
-async function autenticar(e) {
-    e.preventDefault(); // Impede o formulário de recarregar a página
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("loginForm");
+    const mensagem = document.getElementById("msg");
 
-    document.getElementById('msg').innerText = "Aguarde... ";
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault(); // Impede o envio padrão do formulário
 
-    const dados = {
-        email: document.getElementById('email').value,
-        senha: document.getElementById('senha').value
-    };
+        mensagem.innerText = "Aguarde...";
+        mensagem.style.color = "black";
 
-    const url = "https://24-api-a-two.vercel.app/login";
+        const email = document.getElementById("email").value;
+        const senha = document.getElementById("senha").value;
 
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json' 
-            },
-            body: JSON.stringify(dados)
-        });
-
-        if (!response.ok) {
-            throw new Error("Email/Senha incorretos!");
+        if (!email || !senha) {
+            mensagem.innerText = "Preencha todos os campos!";
+            mensagem.style.color = "red";
+            return;
         }
 
-        const data = await response.json();
+        const url = "https://24-api-a-two.vercel.app/login";
 
-        // Armazenar o token no localStorage
-        localStorage.setItem('jwt', data.token);
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, senha }),
+            });
 
-        // Exibir a mensagem de sucesso
-        const areaMensagem = document.getElementById('msg');
-        areaMensagem.style.color = "green";
-        areaMensagem.innerHTML = "Usuário autenticado com sucesso! <br> Token: " + data.token;
+            if (!response.ok) {
+                throw new Error("Email ou senha incorretos!");
+            }
 
-        // Redirecionar para a página index.html
-        window.location.href = "index.html";  // Redireciona para a página inicial
+            const data = await response.json();
+            localStorage.setItem("jwt", data.token);
 
-    } catch (error) {
-        const areaMensagem = document.getElementById('msg');
-        areaMensagem.style.color = "red";
-        areaMensagem.innerText = error;
-    }
-}
+            mensagem.innerText = "Login bem-sucedido! Redirecionando...";
+            mensagem.style.color = "green";
+
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1500);
+        } catch (error) {
+            mensagem.innerText = error.message;
+            mensagem.style.color = "red";
+        }
+    });
+});

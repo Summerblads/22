@@ -1,38 +1,97 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Front-End API </title>
+    <title>Front-End API</title>
     <style>
-      /* Adicionar os estilos para o botão */
-      button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s;
-      }
+        /* Resetando margens e paddings para evitar inconsistências */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-      button:hover {
-        background-color: #45a049;
-      }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            color: #333;
+        }
 
-      /* Classe para esconder o botão inicialmente */
-      .hidden {
-        display: none;
-      }
+        h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        /* Botão de buscar autor */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 200px;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px); /* Leve elevação do botão */
+        }
+
+        button:active {
+            transform: translateY(2px); /* Efeito de pressionamento */
+        }
+
+        /* Mensagem de resposta */
+        #respAutor {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* Estilos para o link de login */
+        a {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Estilo para o container geral */
+        .container {
+            text-align: center;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
     </style>
-  </head>
-  <body>
-    <h3>Front-End API</h3>
-    <button id="botaoAutor" class="hidden">Buscar Autor</button> <!-- Inicialmente escondido -->
-    <div id="respAutor"></div>
-    
+</head>
+<body>
+    <div class="container">
+        <h3>Front-End API</h3>
+        <button id="botaoAutor" class="hidden">Buscar Autor</button> <!-- Inicialmente escondido -->
+        <div id="respAutor"></div>
+        <a href="login.html">Login</a>
+    </div>
+
     <script src="js/main.js"></script>
-  </body>
+</body>
 </html>
