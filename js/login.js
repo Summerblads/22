@@ -1,47 +1,55 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("loginForm");
-    const mensagem = document.getElementById("msg");
+// Seleciona o botão de login pelo ID e adiciona um evento de clique para chamar a função autenticar
+const botaoLogin = document.querySelector('#entrar');
+botaoLogin.addEventListener('click', autenticar);
 
-    form.addEventListener("submit", async function (e) {
-        e.preventDefault(); // Impede o envio padrão do formulário
+// Seleciona a área onde as mensagens de status serão exibidas
+const areaMensagem = document.getElementById('msg');
 
-        mensagem.innerText = "Aguarde...";
-        mensagem.style.color = "black";
+// Função assíncrona responsável por autenticar o usuário
+async function autenticar(e) {
 
-        const email = document.getElementById("email").value;
-        const senha = document.getElementById("senha").value;
+	// Impede que o formulário recarregue a página ao enviar os dados
+  e.preventDefault(); 
 
-        if (!email || !senha) {
-            mensagem.innerText = "Preencha todos os campos!";
-            mensagem.style.color = "red";
-            return;
-        }
+  // Exibe uma mensagem temporária informando que a requisição está em andamento
+  document.getElementById('msg').innerText = "Aguarde... ";
 
-        const url = "https://24-api-a-two.vercel.app/login";
+  // Coleta os valores digitados nos campos de email e senha
+  const dados = {
+    email: document.getElementById('email').value,
+    senha: document.getElementById('senha').value
+  };
 
-        try {
-            const response = await fetch(url, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, senha }),
-            });
+  // Define a URL da API que processará a autenticação
+  const url = "https://24-api-a-two.vercel.app/login";
 
-            if (!response.ok) {
-                throw new Error("Email ou senha incorretos!");
-            }
-
-            const data = await response.json();
-            localStorage.setItem("jwt", data.token);
-
-            mensagem.innerText = "Login bem-sucedido! Redirecionando...";
-            mensagem.style.color = "green";
-
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 1500);
-        } catch (error) {
-            mensagem.innerText = error.message;
-            mensagem.style.color = "red";
-        }
+  try {
+    // Envia uma requisição HTTP POST para a API com os dados do usuário
+    const response = await fetch(url, {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json' // Define que o conteúdo enviado será em formato JSON
+      },
+      body: JSON.stringify(dados) // Converte o objeto "dados" para JSON antes de enviar
     });
-});
+
+    // Se a resposta da API não for bem-sucedida, lança um erro
+    if (!response.ok) {
+      throw new Error("Email/Senha incorretos! - " + response.status);
+    }
+
+    // Converte a resposta da API para JSON
+    const data = await response.json();
+
+    // Armazena o token JWT no localStorage para manter a sessão do usuário
+    localStorage.setItem('jwt', data.token);
+
+    // Exibe uma mensagem de sucesso na interface do usuário em verde juntamente com o Token gerado
+    window.location.href = 'home.html';
+
+  } catch (error) {
+    // Exibe uma mensagem de erro na interface do usuário em vermelho
+    areaMensagem.style = "color:red";
+    areaMensagem.innerHTML = error;
+  }
+}
