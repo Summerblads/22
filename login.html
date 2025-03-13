@@ -4,6 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f8f8;
+        }
+
+        .login-form {
+            background-color: white;
+            border: 3px solid black;
+            padding: 20px;
+            width: 250px;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+            border: 1px solid black;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 5px 15px;
+            border: 1px solid black;
+            background-color: #e0e0e0;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #d6d6d6;
+        }
+    </style>
 </head>
 <body>
     <div class="login-form">
@@ -18,7 +64,7 @@
             <button type="submit" id="entrar">Entrar</button>
         </form>
         <br>
-        <span id="msg" class=""></span>
+        <span id="msg"></span>
     </div>
 </body>
 <script src="js/login.js"></script>

@@ -1,13 +1,5 @@
-// Seleciona o botão de login pelo ID e adiciona um evento de clique para chamar a função autenticar
-const botaoLogin = document.querySelector('#login-form');
-botaoLogin.addEventListener('submit', autenticar);
-
-// Seleciona a área onde as mensagens de status serão exibidas
-const areaMensagem = document.getElementById('msg');
-
-// Função assíncrona responsável por autenticar o usuário
 async function autenticar(e) {
-    e.preventDefault(); // Impede que o formulário recarregue a página
+    e.preventDefault(); // Impede o formulário de recarregar a página
 
     document.getElementById('msg').innerText = "Aguarde... ";
 
@@ -16,18 +8,14 @@ async function autenticar(e) {
         senha: document.getElementById('senha').value
     };
 
-    const dados = {
-    email: document.getElementById('id_do_input_do_email').value,
-    senha: document.getElementById('id_do_input_do_senha').value
-  };
-    
     const url = "https://24-api-a-two.vercel.app/login";
 
     try {
         const response = await fetch(url, {
             method: 'POST',
             headers: { 
-                'Content-Type': 'application/json' },
+                'Content-Type': 'application/json' 
+            },
             body: JSON.stringify(dados)
         });
 
@@ -37,12 +25,19 @@ async function autenticar(e) {
 
         const data = await response.json();
 
+        // Armazenar o token no localStorage
         localStorage.setItem('jwt', data.token);
 
-        areaMensagem.style = "color:green";
-        areaMensagem.innerHTML = "Usuário Autenticado com Sucesso! <br> Token: " + data.token;
+        // Exibir a mensagem de sucesso
+        const areaMensagem = document.getElementById('msg');
+        areaMensagem.style.color = "green";
+        areaMensagem.innerHTML = "Usuário autenticado com sucesso! <br> Token: " + data.token;
+
+        // Redirecionar para a página index.html
+        window.location.href = "index.html";  // Redireciona para a página inicial
 
     } catch (error) {
+        const areaMensagem = document.getElementById('msg');
         areaMensagem.style.color = "red";
         areaMensagem.innerText = error;
     }
