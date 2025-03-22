@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const botaoAutor = document.getElementById('botaoAutor');
     const respAutor = document.getElementById('respAutor');
 
-    const urlBase = "https://24-api-a-two.vercel.app";
+    const urlBase = "https://24-api-a-nu.vercel.app";
 
     // Exibe o botão "Buscar Autor" independentemente do token
     botaoAutor.classList.remove("hidden");

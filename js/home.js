@@ -22,7 +22,7 @@ import { verificarAutenticacao } from './autorizar.js';
   } 
 })();
 
-const urlBase = "https://24-api-a-two.vercel.app";
+const urlBase = "https://24-api-a-nu.vercel.app";
 
 const tabelaCorpo = document.getElementById("tabela-usuarios");
 tabelaCorpo.innerHTML = 'Aguarde...';

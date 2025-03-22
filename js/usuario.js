@@ -15,7 +15,7 @@ const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
 
 const token = localStorage.getItem('jwt');
-const url = `https://24-api-a-two.vercel.app/usuario/${id}`;
+const url = `https://24-api-a-nu.vercel.app/usuario/${id}`;
 
 try {
   const response = await fetch(url, {
